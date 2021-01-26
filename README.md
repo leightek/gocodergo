@@ -6,4 +6,7 @@ The place to get your tools sharpened. The more practice, the more professional 
 
 ### 10 Days of Statistics
 
-Day 0: [Mean, Median, and Mode](https://www.hackerrank.com/challenges/s10-basic-statistics/problem)   [Solution](https://github.com/leightek/gocodergo/blob/main/src/main/java/leightek/hackerrank/tendaysstat/MeanMedianMode.java)
+| Day | Challenge Link | Solution Link | Language | 
+|:---:|:-----------------------:|:------------:|:--------:|
+|  0  | [Mean, Median, and Mode](https://www.hackerrank.com/challenges/s10-basic-statistics) | [Solution](https://github.com/leightek/gocodergo/blob/main/src/main/java/leightek/hackerrank/tendaysstat/MeanMedianMode.java) |Java 8 |
+|  0  | [Weighted Mean](https://www.hackerrank.com/challenges/s10-weighted-mean) | [Solution](https://github.com/leightek/gocodergo/blob/main/src/main/java/leightek/hackerrank/tendaysstat/WeightedMean.java) | Java 8 |
