@@ -1,0 +1,64 @@
+# Global/class scope variables
+R, C = ... # R = number of rows, C = number of columns
+m = ... # Input character matrix of size R x C
+sr, sc = # 'S' symbol row and column values
+rq, cq = # Empty Row Queue (RQ) and Column Queue (CQ)
+
+# Variables used to track the number of steps taken.
+move_count = 0
+nodes_left_in_layer = 1
+nodes_in_next_layer = 0
+
+# Variables used to track whether the 'E' character
+# ever gets reached during the BFS.
+reached_end = false
+
+# R x C matrix of flase values used to track whether
+# the node at position (i, j) has been visited.
+visited = ...
+
+# North, south, east, west direction vectors.
+dr = [-1, +1,  0,  0]
+dc = [0 ,  0, +1, -1]
+
+function solve():
+    rq.enqueue(sr)
+    cq.enqueue(sc)
+    visited[sr][sc] = true
+    while rq.size() > 0: # or cq.size() > 0
+        r = rq.dequeue()
+        c = cq.dequeue()
+        if m[r][c] == 'E':
+            reached_end = true
+            break
+        explore_neighbors(r, c)
+        nodes_left_in_layer--
+        if nodes_left_in_layer == 0:
+            nodes_left_in_layer = nodes_in_next_layer
+            nodes_in_next_layer == 0
+            move_count++
+    if reached_end:
+        return move_count
+    return -1
+
+function explore_neighbors(r, c):
+    for(i = 0; i < 4; i++):
+        rr = r + dr[i];
+        cc = c + dc[i];
+
+        # Skip out of bounds locations
+        if rr < 0 or cc < 0:
+            continue
+        if rr >= R or cc >= C:
+            continue
+
+        # Skip visited location or blocked cellls
+        if visited[rr][cc]:
+            continue
+        if m[rr][cc] == '#':
+            continue
+
+        rq.enqueue[rr]
+        cq.enqueue[cc]
+        visited[rr][cc] = true
+        nodes_in_next_layer++

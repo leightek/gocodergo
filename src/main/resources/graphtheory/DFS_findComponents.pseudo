@@ -1,0 +1,20 @@
+# Global or class scope variables
+n = number of nodes in the graph
+g = adjacency list representing graph
+count = 0
+components = empty integer array # size n
+visited = [false, ..., false] # size n
+
+function findComponents():
+    for(i = 0; i < n; i++):
+        if !visited[i]:
+            count++
+            dfs(i)
+    return (count, components)
+
+function dfs(at):
+    visited[at] = true
+    components[at] = count
+    for(next : g[at]):
+        if !visited[next]:
+            dfs(next)
