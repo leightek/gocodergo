@@ -1,0 +1,21 @@
+# Runs Dijkstra's algorithm and returns an array that contains
+# the shortest distance to every node from the start node s.
+# g - adjacency list of weighted graph
+# n - the number of nodes in the graph
+# s - the index of the starting node (0 <=s < n)
+function dijkstra(g, n, s):
+    vis = [false, false, ..., false] # size n
+    dist[s] = 0
+    pq = empty priority queue
+    pq.insert((s, 0))
+    while pq.size() != 0:
+        index, minValue = pq.poll()
+        vis[index] = true
+        for (edge: g[index]):
+            if vis[edge.to]:
+                continue
+            newDist = dist[index] + edge.cost
+            if newDist < dist[edge.to]:
+                dist[edge.to] = newDist
+                pq.insert((edge.to, newDist))
+    return dist
