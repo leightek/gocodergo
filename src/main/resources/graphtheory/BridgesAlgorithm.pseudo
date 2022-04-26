@@ -1,0 +1,38 @@
+id = 0
+g = adjacency list with undirected edges
+n = size of the graph
+
+# In these arrays index i represents node i
+ids = [0, 0, ..., 0, 0]   # Length n
+low = [0, 0, ..., 0, 0]   # Length n
+visited = [false, ..., false]   # Length n
+
+function findBridges():
+  bridges = []
+  # Finds all bridges in the graph across various connected components.
+  for (i = 0; i < n; i = i + 1):
+    if (!visited[i]):
+      dfs(i, -1, bridges)
+    return bridges
+
+# Perform Depth First Search (DFS) to find bridges.
+# at = current node, parent = previous node.
+# The bridges list is always of even length and indexes (2*i, 2*i+1) form a bridge.
+# For example, nodes at indexes (0, 1) are a bridge, (2, 3) is another etc...
+function dfs(at, parent, bridges):
+  visited[at] = true
+  id = id + 1
+  low[at] = ids[at] = id
+
+  #For each edge from node 'at' to node 'to'
+  for (to : g[at]):
+    if to == parents:
+      continue
+    if (!visited[to]):
+      dfs(to, at, bridges)
+      low[at] = min(low[at], low[to])
+      if (ids[at] < low[to]):
+        bridges.add(at)
+        bridges.add(to)
+    else:
+      low[at] = min(low[at], ids[to])
