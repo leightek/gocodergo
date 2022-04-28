@@ -1,0 +1,43 @@
+UNVISITED = -1
+n = number of nodes in graph
+g = adjacency list with directed edges
+
+id = 0 # Used to give each node an id
+sccCount = 0 # Used to count the number of SCCs found
+
+# Index i in the arrays represents node i
+ids = [0, 0, ..., 0, 0]   # Length n
+low = [0, 0, ..., 0, 0]   # Length n
+onStack = [false, false, ..., false] # Length n
+stack = an empty stack data structure
+
+function findSccs():
+  for(i = 0; i < n; i++):
+    id[i] = UNVISITED
+  for(i = 0; i < n; i++):
+    if(ids[i] == UNVISITED):
+      dfs(i)
+  return low
+
+function dfs(at):
+  stack.push(at)
+  onStack[at] = true
+  ids[at] = low[at] = id++
+
+  # Visit all neighbors & min low-link on callback
+  for(to : g[at]):
+    if(ids[to] == UNVISITED):
+      dfs(to)
+    if(onStack[to]):
+      low[at] = min(low[at], low[to])
+
+    # After having visited all the neighbors, if at the start of a SCC, empty the stack until back to the start of the
+    # SCC
+    if(ids[at] == low[to]):
+      for(node = stack.pop();;node = stack.pop()):
+        onStack[node] = false
+        low[node] = low[at]
+        if(node == at):
+          break
+      sccCount++
+
