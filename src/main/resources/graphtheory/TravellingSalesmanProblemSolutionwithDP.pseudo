@@ -34,17 +34,20 @@ function solve(m, memo, S, N):
   for subset in combinations(r, N):
     if notIn(S, subset):
       continue
-    # The subset state without the next node
-    state = subset ^ (1 << next)
-    minDist = +∞
-    # 'e' is short for end node.
-    for (e = 0; e < N; e = e + 1):
-      if e == S || e = next || notIn(e, subset):
+    for (next = 0; next < N; next = next + 1):
+      if next == S || notIn(next, subset):
         continue
-      newDistance = memo[e][state] + m[e][next]
-      if (newDistance < minDist):
-        minDist = new Distance
-      memo[next][subset] = minDist
+        # The subset state without the next node
+        state = subset ^ (1 << next)
+        minDist = +∞
+        # 'e' is short for end node.
+        for (e = 0; e < N; e = e + 1):
+          if e == S || e = next || notIn(e, subset):
+            continue
+          newDistance = memo[e][state] + m[e][next]
+          if (newDistance < minDist):
+            minDist = new Distance
+          memo[next][subset] = minDist
 
 # Return true if the ith bit in 'subset' is not set
 function notIn(i, subset):

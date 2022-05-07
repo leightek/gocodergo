@@ -146,6 +146,8 @@ public class TravelingSalesmanProblemSolutionWithDP {
 
         combinations(0, 0, r, n, subsets);
 
+        System.out.println("subsets = " + subsets);
+
         return subsets;
     }
 
@@ -161,11 +163,11 @@ public class TravelingSalesmanProblemSolutionWithDP {
             subsets.add(set);
         else {
             for (int i = at; i < n; i++) {
-                // Including this element
+                // Including this element by flip on ith bit
                 set ^= (1 << i);
                 combinations(set, i + 1, r - 1, n, subsets);
 
-                // Backtrack the instance not including element
+                // Backtrack the instance not including element by flip off ith bit
                 set ^= (1 << i);
             }
         }
