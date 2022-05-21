@@ -26,7 +26,7 @@ public class EulerianPathDirectedEdgesAdjacencyList {
 
     /**
      * Get Eulerian path, a list of edgeCount + 1 node ids
-     * @return the Eulerian path with an int array, or null if the graph is disconnected
+     * @return the Eulerian path as an int array, or null if the graph is disconnected
      */
     public int[] getEulerianPath() {
         setUp();
@@ -84,7 +84,7 @@ public class EulerianPathDirectedEdgesAdjacencyList {
         for (int i = 0; i < n; i++) {
             if (out[i] - in[i] == 1)
                 return i;
-            if (out[i] - in[i] > 0) // start at node with an outgoing edge
+            if (out[i] > 0) // start at node with an outgoing edge
                 start = i;
         }
 
