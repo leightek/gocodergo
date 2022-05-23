@@ -1,0 +1,39 @@
+n = number of nodes in the graph
+pq = PQ data structure, stores edge (start node, end node, edge cost) objects, sorts based on min edge cost
+g = graph representing an adjacency list of weighted edges, each undirected edge is represented as two directed edges
+visited = [false, ..., false], size n, i node visited or not
+s = the index of the starting node, 0 <= s < n
+
+function lazyPrims(s = 0):
+  m = n - 1
+  edgeCount, mstCost = 0, 0
+  mstEdges = [null, ..., null]
+  addEdges(s)
+
+  while (!pq.isEmpty() and edgeCount != m):
+    edge = pq.dequeue()
+    nodeIndex = edge.to
+
+    if visited[nodeIndex]:
+      continue
+
+    mstEdges[edgeCount++] = edge
+    mstCost += edge.cost
+
+    addEdges(nodeIndex)
+
+  if edgeCount != m:
+    return (null, null) # no MST exists
+
+  return (mstCost, mstEdges)
+
+function addEdges(nodeIndex):
+  visited[nodeIndex] = true
+
+  edges = g[nodeIndex]
+  for (edge : edges):
+    if !visited[edge.to]:
+      pq.enqueue(edge)
+
+
+
