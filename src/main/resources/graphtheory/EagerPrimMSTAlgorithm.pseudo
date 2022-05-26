@@ -1,0 +1,41 @@
+n = number of nodes in the graph
+ipq = IPQ data structure, stores edge (node index, edge object) pairs, edge (start node, end node, edge cost),
+      sorts based on min edge cost
+g = graph representing an adjacency list of weighted edges, each undirected edge is represented as two directed edges
+visited = [false, ..., false], size n, i node visited or not
+s = the index of the starting node, 0 <= s < n
+
+function eagerPrims(s = 0):
+  m = n - 1
+  edgeCount, mstCost = 0, 0
+  mstEdges = [null, ..., null]
+  relaxEdgesAtNode(s)
+
+  while (!ipq.isEmpty() and edgeCount != m):
+    destNodeIndex, edge = ipq.dequeue()
+
+    mstEdges[edgeCount++] = edge
+    mstCost += edge.cost
+
+    relaxEdgesAtNode(destNodeIndex)
+
+  if edgeCount != m:
+    return (null, null) # no MST exists
+
+  return (mstCost, mstEdges)
+
+function relaxEdgesAtNode(currentNodeIndex):
+  visited[currentNodeIndex] = true
+
+  edges = g[currentNodeIndex]
+  for (edge : edges):
+    destNodeIndex = edge.to
+    if visited[destNodeIndex]:
+      continue
+    if !ipq.contains(destNodeIndex):
+      ipq.insert(destNodeIndex, edge)
+    else:
+      ipq.decreaseKey(destNodeIndex, edge)
+
+
+
